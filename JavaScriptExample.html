@@ -1,0 +1,286 @@
+
+<!doctype html>
+<html lang="en" style="background-color:bisque;">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JavaScript Example</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+ 
+	<style> 
+		input, select { 
+			border: 1px solid #848484; 
+			-webkit-border-radius: 30px; 
+			-moz-border-radius: 30px; 
+			border-radius: 30px; 
+			outline:0; 
+			padding-left:10px; 
+			padding-right:10px; 
+		} 
+		
+		th {
+			border-radius: 15px;
+		}
+
+		body{
+			font-family: 'Roboto', sans-serif;
+			font-weight: 400;
+			width:100%;
+			height:100%;
+			
+		}
+
+	</style> 
+
+</head>
+
+<body>
+
+<h1 style=" margin-top:100px; color:turquoise; font-size:3.7em; text-align:Center" >JavaScript Dinamic Add Operation</h1>
+
+<center><form name="submitform" id="submitform">
+    <table id="dynamic-table">
+	<thead>
+		<tr >
+			<th> 
+			</th>
+			<th>
+			</th>
+			<th>
+			</th>
+			<th>
+			</th> 			
+			<th>			
+			</th>
+			<th>			
+			</th>
+			<th>
+			</th>
+			<th>
+			</th>			
+			<th>
+			</th>			
+			<th>
+			</th>			
+			<th>
+			</th>			
+		</tr>
+		<tr >
+			
+			<th ></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th style="background-color:orange;" >Total</th>
+		</tr>
+	</thead>
+
+	<tbody>
+
+        <tr id="0";>
+
+			<td></td>
+			<td></td>
+            <td><a href="#" class="row-delete">Delete</a></td>
+            <td>
+                <input type="text" style="width: 60px;" id="text1[]" class="text1" onkeyup="onkeyupsum(), topla()" autocomplete="off" />
+            </td>
+            <td>
+                <input type="text" style="width: 60px;" id="text2[]" class="text2" onkeyup="onkeyupsum(), topla()" autocomplete="off" />
+            </td>
+            <td>
+                <input type="text" style="width: 60px;" id="text3[]" class="text3" onkeyup="onkeyupsum(), topla()" autocomplete="off" />
+            </td>
+            <td>
+                <input type="text" style="width: 60px;" id="text4[]" class="text4" onkeyup="onkeyupsum(), topla()" autocomplete="off" />
+            </td>
+            <td>
+                <input type="text" style="width: 60px;" id="text5[]" class="text5" onkeyup="onkeyupsum(), topla()" autocomplete="off" />
+            </td>
+			<td>
+                <input type="text" style="width: 60px;" id="text6[]" class="text6" onkeyup="onkeyupsum(), topla()" autocomplete="off" />
+            </td>
+			<td>
+                <input type="text" style="width: 60px;" id="text7[]" class="text7" onkeyup="onkeyupsum(), topla()" autocomplete="off" />
+            </td>
+			<td>
+                <input type="text" style="width: 60px;" id="text8[]" class="text8" />
+             
+            </td>
+			
+        </tr>
+	</tbody>
+	<tfoot>
+        <tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+            <td></td>
+			<td></td>
+			<td><input type="button" id="addnew"  value="Add New" style="width: 80px;" /></td>
+			<td></td>
+	
+        </tr>
+        <tr>
+
+			<td></td>
+			<td></td>
+
+            <th style="background-color:orange;" >Total</th>
+            <td>
+                <input type="text" style="width: 60px;" name="foottext1" id="foottext1" />
+            </td>
+            <td>
+                <input type="text" style="width: 60px;" name="foottext2" id="foottext2" />
+            </td>
+            <td>
+                <input type="text" style="width: 60px;" name="foottext3" id="foottext3" />
+            </td>
+            <td>
+                <input type="text" style="width: 60px;" name="foottext4" id="foottext4" />
+            </td>
+            <td>
+                <input type="text" style="width: 60px;" name="foottext5" id="foottext5" /> 
+            </td>
+			<td>
+                <input type="text" style="width: 60px;" name="foottext6" id="foottext6" /> 
+            </td>
+			<td>
+                <input type="text" style="width: 60px;" name="foottext7" id="foottext7" /> 
+            </td>
+            <td>
+               
+            </td>
+        </tr>
+	</tfoot>
+    </table>
+</form></center>
+
+</body>
+
+</html>
+
+<script>
+
+	var globalIndex = 0;
+
+    $(document).on("click", "#dynamic-table .row-delete", function(){
+    	
+      var $this = $(this);
+      
+      if(confirm("Are you sure?"))
+      {
+        if($this.closest("tbody").find("tr").length > 1){
+        	$this.closest("tr").remove();
+			onkeyupsum();
+			globalIndex--;
+        }
+        else{
+       		alert("!!!"); 
+        }
+      }
+      
+    	return false;
+    });
+
+	$("#dynamic-table #addnew").on("click", function(){
+	
+		
+			globalIndex++;
+    	var table = $("#dynamic-table");
+		var tableBody = table.find("tbody");
+    	var tableRow = tableBody.find("tr");			
+        var newRow = tableRow.eq(0).clone();
+        
+		newRow.find("input").val("");
+		
+		newRow.attr('id', $('#dynamic-table tr').length - 4);
+        tableBody.append(newRow);
+				
+    });
+
+		var m, t, p, d, g, o, z, c, r, w = 0;
+
+
+	function onkeyupsum() {	
+	
+		var sum1 = 0,
+			text1 = document.querySelectorAll('.text1'), r;
+		for (r = 0; r < text1.length; r++) {
+			sum1 += parseFloat(text1[r].value || 0);
+		}
+		document.submitform.foottext1.value = sum1;
+
+		var sum2 = 0,
+			text2 = document.querySelectorAll('.text2'), d;
+		for (d = 0; d < text2.length; d++) {
+			sum2+= parseFloat(text2[d].value || 0);
+		}
+		document.submitform.foottext2.value = sum2;
+
+		var sum3 = 0,
+			text3 = document.querySelectorAll('.text3'), m;
+		for (m = 0; m < text3.length; m++) {
+			sum3 += parseFloat(text3[m].value || 0);
+		}
+		document.submitform.foottext3.value = sum3;
+
+		var sum4 = 0,
+			text4 = document.querySelectorAll('.text4'), c;
+		for ( c= 0; c < text4.length; c++) {
+			sum4 += parseFloat(text4[c].value || 0);
+		}
+		document.submitform.foottext4.value = sum4;
+
+		var sum5 = 0,
+			text5 = document.querySelectorAll('.text5'), t;
+		for (t = 0; t < text5.length; t++) {
+			sum5 += parseFloat(text5[t].value || 0);
+		}
+		document.submitform.foottext5.value = sum5;
+	
+		var sum6 = 0,
+			text6 = document.querySelectorAll('.text6'), g;
+		for (g = 0; g < text6.length; g++) {
+			sum6 += parseFloat(text6[g].value || 0);
+		}
+		document.submitform.foottext6.value = sum6;
+	
+		var sum7 = 0,
+			text7 = document.querySelectorAll('.text7'), o;
+		for (o = 0; o < text7.length; o++) {
+			sum7 += parseFloat(text7[o].value || 0);
+		}	
+		document.submitform.foottext7.value = sum7;
+	
+
+	}
+
+	function topla() 
+	{
+	
+	var toplam=0;	
+	
+	var totalIndex = document.activeElement.parentElement.parentElement.getAttribute('id');
+	
+		for(w=1;w<8;w++)
+		{ 
+			if (document.getElementsByClassName("text"+w)[totalIndex].value!="") 
+			toplam+=parseInt(document.getElementsByClassName("text"+w)[totalIndex].value); 
+		} 
+		document.getElementsByClassName("text8")[totalIndex].value=toplam; 
+
+	}
+
+</script>
+
